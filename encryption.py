@@ -2,8 +2,8 @@ import math
 
 A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
-n = 89711
-e  = 3251
+n = 5697959
+e = 3571
 
 print('n = %d, e = %d' %(n, e))
 
@@ -33,5 +33,8 @@ for i in c_ascii_list:
 
 c_txt = (''.join(c_txt_list))
 
+print(p_ascii_list)
 print(c_ascii_list)
-print('Cryptogram:\n',c_txt)
+print('Cryptogram:',c_txt)
+
+if(P > n):print('Unbreakable!!')

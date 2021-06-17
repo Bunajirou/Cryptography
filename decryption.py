@@ -3,11 +3,11 @@ import sympy
 
 A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
-p = 283
-q = 317
+p = 3559
+q = 1601
 
 n = p * q
-e  = 3251
+e  = 3571
 
 L = math.lcm(p-1, q-1)
 max = max(p, q)
@@ -42,5 +42,7 @@ for i in p_ascii_list:
 p_txt = (''.join(p_txt_list))
 
 print('n = %d, e = %d' %(n, e))
+
 print(p_ascii_list)
-print('Plaintexst:\n',p_txt)
+print(c_ascii_list)
+print('Plaintexst:',p_txt)
