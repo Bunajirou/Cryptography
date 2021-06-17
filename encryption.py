@@ -1,15 +1,10 @@
 import math
 
-A = 32  #  ASCIIコードのA番以降を使う
+A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
-p = 283
-q = 317
-
-n = p * q
-
-L = math.lcm(p, q)
-max = max(p, q)
+n = 89711
 e  = 3251
+
 print('n = %d, e = %d' %(n, e))
 
 p_text = str(input('Plaintexst?= '))
