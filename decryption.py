@@ -24,11 +24,23 @@ C = 0
 for i in c_txt_list:
     c_ascii_list.append(ord(i))  #  いらない
     C += ((127-A) ** c_len) * (ord(i)-A)
-    print(C)
     c_len -= 1
 
+P = (C ** d) % n
 
+p_ascii_list = []
+P_dumy = P
+while P_dumy>0:
+    p_ascii_list.append(P_dumy%(127-A)+A)
+    P_dumy = int(P_dumy/(127-A))
+p_ascii_list.reverse()
+
+p_txt_list = []
+for i in p_ascii_list:
+    p_txt_list.append(chr(i))
+
+p_txt = (''.join(p_txt_list))
 
 print('n = %d, e = %d' %(n, e))
-print(C)
-print(c_ascii_list)
+print(p_ascii_list)
+print('Plaintexst:\n',p_txt)

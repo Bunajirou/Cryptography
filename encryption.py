@@ -15,7 +15,7 @@ p_len = len(p_txt_list)-1
 P = 0
 for i in p_txt_list:
     p_ascii_list.append(ord(i))  #  いらない
-    P += ((127-A) ** p_len) * ord(i)
+    P += ((127-A) ** p_len) * (ord(i)-A)
     p_len -= 1
 
 C = (P ** e) % n
@@ -25,7 +25,6 @@ C_dumy = C
 while C_dumy>0:
     c_ascii_list.append(C_dumy%(127-A)+A)
     C_dumy = int(C_dumy/(127-A))
-    print(C_dumy)
 c_ascii_list.reverse()
 
 c_txt_list = []
@@ -34,8 +33,5 @@ for i in c_ascii_list:
 
 c_txt = (''.join(c_txt_list))
 
-print(p_ascii_list)
 print(c_ascii_list)
 print('Cryptogram:\n',c_txt)
-print(P)
-print(C)
