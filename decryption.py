@@ -1,5 +1,6 @@
 import math
 import sympy
+import time
 
 A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
