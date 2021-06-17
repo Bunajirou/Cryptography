@@ -1,5 +1,4 @@
 import math
-import sympy
 
 A = 32  #  ASCIIコードのA番以降を使う
 
