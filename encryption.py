@@ -5,16 +5,21 @@ A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 n = int(input('n='))
 e = int(input('e='))
 
-p_text = str(input('Plaintexst?= '))
-p_txt_list = list(p_text)
+P = n + 1
+while(P > n):
+    p_text = str(input('Plaintexst?= '))
+    p_txt_list = list(p_text)
 
-p_ascii_list = []  #  いらない
-p_len = len(p_txt_list)-1
-P = 0
-for i in p_txt_list:
-    p_ascii_list.append(ord(i))  #  いらない
-    P += ((127-A) ** p_len) * (ord(i)-A)
-    p_len -= 1
+    p_ascii_list = []  #  いらない
+    p_len = len(p_txt_list)-1
+    P = 0
+    for i in p_txt_list:
+        p_ascii_list.append(ord(i))  #  いらない
+        P += ((127-A) ** p_len) * (ord(i)-A)
+        p_len -= 1
+    
+    if(P > n):
+        print('Unbreakable!!')
 
 C = pow(P, e, n)
 
@@ -33,7 +38,6 @@ c_txt = (''.join(c_txt_list))
 
 print(p_ascii_list)
 print(c_ascii_list)
-if(P > n):print('Unbreakable!!')
-else:print('Cryptogram:',c_txt)
+print('Cryptogram:',c_txt)
 print('P:',P)
 print('C:',C)
