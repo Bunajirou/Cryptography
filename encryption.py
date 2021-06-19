@@ -2,10 +2,8 @@ import math
 
 A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
-n = 5697959
-e = 3571
-
-print('n = %d, e = %d' %(n, e))
+n = int(input('n='))
+e = int(input('e='))
 
 p_text = str(input('Plaintexst?= '))
 p_txt_list = list(p_text)
@@ -35,6 +33,7 @@ c_txt = (''.join(c_txt_list))
 
 print(p_ascii_list)
 print(c_ascii_list)
-print('Cryptogram:',c_txt)
-print('P=:',P)
 if(P > n):print('Unbreakable!!')
+else:print('Cryptogram:',c_txt)
+print('P:',P)
+print('C:',C)

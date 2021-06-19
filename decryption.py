@@ -1,14 +1,13 @@
 import math
 import sympy
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外)
+A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字を使用
 
-p = 3559
-q = 1601
+p = int(input('p='))
+q = int(input('q='))
+e = int(input('e='))
 
 n = p * q
-e  = 3571
-
 L = math.lcm(p-1, q-1)
 max = max(p, q)
 
@@ -47,5 +46,8 @@ print(p_ascii_list)
 print(c_ascii_list)
 print('Plaintexst:',p_txt)
 print('d:',d)
+print('P:',P)
+print('C:',C)
+print('L:',L)
 
 
