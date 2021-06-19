@@ -1,6 +1,7 @@
 import sympy
 import math
 import tkinter
+from ctypes import windll 
 from tkinter import Label, Widget
 
 max_prime = pow(10, 21)
@@ -56,6 +57,5 @@ n_button.place(x=15, y=68)
 
 e_button = tkinter.Button(text="e",command=set_e)
 e_button.place(x=15, y=98)
-
 
 root.mainloop()
