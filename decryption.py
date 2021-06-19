@@ -1,7 +1,7 @@
 import math
 import sympy
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字を使用
+A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字が使用可能
 
 p = int(input('p='))
 q = int(input('q='))
@@ -14,40 +14,45 @@ max = max(p, q)
 x = sympy.gcdex(e, L)
 d = int(x[0] % L)
 
-c_text = str(input('Cryptogram?= '))
-c_txt_list = list(c_text)
+def dec_to_N(N):  #  10進数をN進数に変換する関数
+    keta=0
+    for i in range(10**9):
+        if N<(127-A)**i:
+            keta+=i
+            break
+    ans=[0]*keta
+    check=0
+    for i in range(1,keta+1):
+        j=N//((127-A)**(keta-i))
+        ans[check]=j
+        check+=1
+        N-=(j)*((127-A)**(keta-i))
+    return ans
 
-c_ascii_list = []  #  いらない
-c_len = len(c_txt_list)-1
-C = 0
-for i in c_txt_list:
-    c_ascii_list.append(ord(i))  #  いらない
-    C += ((127-A) ** c_len) * (ord(i)-A)
-    c_len -= 1
+def N_to_dec(list):  #  N進数を10進数に変換する関数
+    l=len(list)
+    ans=0
+    for i in range(1,l+1):
+        ans+=list[-i]*((127-A)**(i-1))
+    return ans
+
+c_text = str(input('Cryptogram?:'))
+c_txt_list = list(c_text)  #  文字列をリストへ変換
+
+c_ascii_list = []
+for i in c_txt_list:  #  ASCIIコードへ変換
+    c_ascii_list.append(ord(i)-A) 
+
+C = N_to_dec(c_ascii_list)
 
 P = pow(C, d, n)
 
-p_ascii_list = []
-P_dumy = P
-while P_dumy>0:
-    p_ascii_list.append(P_dumy%(127-A)+A)
-    P_dumy = int(P_dumy/(127-A))
-p_ascii_list.reverse()
+p_ascii_list = dec_to_N(P)
 
 p_txt_list = []
-for i in p_ascii_list:
-    p_txt_list.append(chr(i))
+for i in p_ascii_list:  #  ASCIIコードを文字へ変換
+    p_txt_list.append(chr(i+A))
 
-p_txt = (''.join(p_txt_list))
+p_txt = (''.join(p_txt_list))  #  リスト内の文字を結合
 
-print('n = %d, e = %d' %(n, e))
-
-print(p_ascii_list)
-print(c_ascii_list)
 print('Plaintexst:',p_txt)
-print('d:',d)
-print('P:',P)
-print('C:',C)
-print('L:',L)
-
-
