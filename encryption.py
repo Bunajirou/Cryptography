@@ -1,6 +1,6 @@
 import math
 
-A = 97  #  ASCIIコードのA番以降を使う(delも除外)
+A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
 n = 5697959
 e = 3571

@@ -1,7 +1,7 @@
 import math
 import sympy
 
-A = 97  #  ASCIIコードのA番以降を使う(delも除外)
+A = 32  #  ASCIIコードのA番以降を使う(delも除外)
 
 p = 3559
 q = 1601
