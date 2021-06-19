@@ -1,7 +1,7 @@
 import math
 import sympy
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外)
+A = 97  #  ASCIIコードのA番以降を使う(delも除外)
 
 p = 3559
 q = 1601
@@ -13,7 +13,7 @@ L = math.lcm(p-1, q-1)
 max = max(p, q)
 
 x = sympy.gcdex(e, L)
-d = x[0] % L
+d = int(x[0] % L)
 
 c_text = str(input('Cryptogram?= '))
 c_txt_list = list(c_text)
@@ -26,7 +26,7 @@ for i in c_txt_list:
     C += ((127-A) ** c_len) * (ord(i)-A)
     c_len -= 1
 
-P = (C ** d) % n
+P = pow(C, d, n)
 
 p_ascii_list = []
 P_dumy = P
@@ -46,3 +46,6 @@ print('n = %d, e = %d' %(n, e))
 print(p_ascii_list)
 print(c_ascii_list)
 print('Plaintexst:',p_txt)
+print('d:',d)
+
+

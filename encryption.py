@@ -1,6 +1,6 @@
 import math
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外)
+A = 97  #  ASCIIコードのA番以降を使う(delも除外)
 
 n = 5697959
 e = 3571
@@ -18,7 +18,7 @@ for i in p_txt_list:
     P += ((127-A) ** p_len) * (ord(i)-A)
     p_len -= 1
 
-C = (P ** e) % n
+C = pow(P, e, n)
 
 c_ascii_list = []
 C_dumy = C
@@ -36,5 +36,5 @@ c_txt = (''.join(c_txt_list))
 print(p_ascii_list)
 print(c_ascii_list)
 print('Cryptogram:',c_txt)
-
+print('P=:',P)
 if(P > n):print('Unbreakable!!')
