@@ -1,12 +1,11 @@
 import math
 import sympy
 import tkinter
-from tkinter import messagebox
 
 A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字が使用可能
 
-max_prime = pow(10, 21)
-min_prime = pow(10, 20)
+max_prime = pow(10, 201)
+min_prime = pow(10, 200)
 
 p = sympy.randprime(min_prime, max_prime)
 q = sympy.randprime(min_prime, max_prime)
@@ -49,7 +48,7 @@ def N_to_dec(list, N):
 #ウィンドウの作成
 root = tkinter.Tk()
 root.title("受信側")
-root.geometry("600x150")
+root.geometry("620x160")
 
 #入力欄の作成
 input_box = tkinter.Entry(width=40)
@@ -62,8 +61,8 @@ key_label.place(x=10, y=10)
 input_label = tkinter.Label(text="暗号文を入力")
 input_label.place(x=10, y=60)
 
-output_label = tkinter.Label(text="平文：")
-output_label.place(x=10, y=110)
+p_label = tkinter.Label(text="平文：")
+p_label.place(x=10, y=110)
 
 #ボタンクリック時の動作
 def set_key():
@@ -85,15 +84,14 @@ def decryption():
         p_txt_list.append(chr(i+A))
     p_txt = (''.join(p_txt_list))  #  リスト内の文字を結合
 
-    P_label = tkinter.Label(text="平文：%s" %p_txt)
-    P_label.place(x=10, y=110)
+    p_label = tkinter.Label(text="平文：%s" %p_txt)
+    p_label.place(x=10, y=110)
 
 #ボタンの作成
 key_button = tkinter.Button(text="keyの値をクリップボードにコピー",command=set_key)
 key_button.place(x=10, y=30)
 
-q_button = tkinter.Button(text="復号",command=decryption)
-q_button.place(x=260, y=78)
-
+decry_button = tkinter.Button(text="復号",command=decryption)
+decry_button.place(x=260, y=78)
 
 root.mainloop()
