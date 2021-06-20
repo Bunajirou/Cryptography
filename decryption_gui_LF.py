@@ -4,11 +4,13 @@ import sympy
 import tkinter
 from tkinter.scrolledtext import ScrolledText
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字が使用可能
+A = 32  #  ASCIIコードのA番以降を使う(delも除外) 途中の処理により改行文字も使用可能
 
+#p,qの最大値、最小値
 max_prime = pow(10, 201)
 min_prime = pow(10, 200)
 
+#p,qを範囲内のランダムな素数で初期化
 p = sympy.randprime(min_prime, max_prime)
 q = sympy.randprime(min_prime, max_prime)
 while(p == q):
@@ -18,7 +20,6 @@ n = p * q
 L = math.lcm(p-1, q-1)
 max = max(p, q)
 e = sympy.randprime(max+1, L)
-
 x = sympy.gcdex(e, L)
 d = int(x[0] % L)
 key = str(n) + " " +str(e)
@@ -101,7 +102,7 @@ def decryption():
             p_txt_list.append(chr(i+A))
     p_txt = (''.join(p_txt_list))  #  リスト内の文字を結合
     p_box.insert(1.0, p_txt)
-
+#クリップボード処理
 def set_key():
     root.clipboard_append(key)
 

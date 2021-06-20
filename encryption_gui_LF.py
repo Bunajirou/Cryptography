@@ -4,7 +4,7 @@ from tkinter.constants import END
 from tkinter.scrolledtext import ScrolledText
 from functools import partial
 
-A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字が使用可能
+A = 32  #  ASCIIコードのA番以降を使う(delも除外) 途中の処理により改行文字も使用可能
 
 #10進数numをN進数に変換する関数
 def dec_to_N(num,N):
@@ -66,7 +66,7 @@ def encryption(x):
     p_txt_list = list(p_txt)  #  文字列をリストへ変換
 
     p_ascii_list = []
-    for i in p_txt_list:  #  ASCIIコードへ変換(改行文字の場合95をリストへ追加)
+    for i in p_txt_list:  #  ASCIIコードへ変換（改行文字の場合95をリストへ追加）
         if(ord(i)==10):
             p_ascii_list.append(95) 
         else:
@@ -81,7 +81,7 @@ def encryption(x):
         c_txt_list = []
         for i in c_ascii_list:  #  ASCIIコードを文字へ変換
             if(i==95):
-                c_txt_list.append(chr(10))
+                c_txt_list.append(chr(10))  #  改行文字用の処理
             else:
                 c_txt_list.append(chr(i+A))
 
@@ -92,7 +92,7 @@ def encryption(x):
             return c_txt
     else:
         messagebox.showwarning("error","平文が長すぎます。")
-
+#クリップボード処理
 def set_c():
         root.clipboard_append(encryption(0))
 
