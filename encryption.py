@@ -1,5 +1,3 @@
-import math
-
 A = 32  #  ASCIIコードのA番以降を使う(delも除外) A=32で制御文字を除くすべてのASCII文字が使用可能
 
 n = int(input('n='))
