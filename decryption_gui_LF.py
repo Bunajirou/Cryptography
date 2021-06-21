@@ -1,28 +1,12 @@
 import math
-from tkinter.constants import END
 import sympy
+import pickle
+import os
 import tkinter
+from tkinter.constants import END
 from tkinter.scrolledtext import ScrolledText
 
 A = 32  # ASCIIコードのA番以降を使う(delも除外) 途中の処理により改行文字も使用可能
-
-# p,qの最大値、最小値
-max_prime = pow(10, 201)
-min_prime = pow(10, 200)
-
-# p,qを範囲内のランダムな素数で初期化
-p = sympy.randprime(min_prime, max_prime)
-q = sympy.randprime(min_prime, max_prime)
-while(p == q):
-    q = sympy.randprime(min_prime, max_prime)
-
-n = p * q
-L = math.lcm(p-1, q-1)
-max = max(p, q)
-e = sympy.randprime(max+1, L)
-x = sympy.gcdex(e, L)
-d = int(x[0] % L)
-key = str(n) + " " +str(e)
 
 # 10進数numをN進数に変換する関数
 def dec_to_N(num,N):
@@ -53,6 +37,67 @@ root = tkinter.Tk()
 root.title("受信側（復号）")
 root.geometry("560x670")
 
+# チェックボタンの状態をバイナリファイルに書き込み
+def write_state():
+    if bln.get():
+        chk_flag = 1
+        f = open('chk.pickle', 'wb')
+        pickle.dump(chk_flag, f)
+        f.close
+    else:
+        chk_flag = 0
+        f = open('chk.pickle', 'wb')
+        pickle.dump(chk_flag, f)
+        f.close
+
+# チェックボタン作成
+bln = tkinter.BooleanVar()
+bln.set(False)
+chk = tkinter.Checkbutton(root, variable=bln, text='keyを固定', command=write_state)
+chk.place(x=440, y=100)
+
+# chk_flagをchkバイナリファイルで初期化,ファイルが存在しない場合は作成し0を書き込み
+if(os.path.exists('./chk.pickle')):
+    f = open('chk.pickle', 'rb')
+    chk_flag = pickle.load(f)
+else:
+    chk_flag = 0
+    f = open('chk.pickle', 'wb')
+    pickle.dump(chk_flag, f)
+    f.close
+
+# chk_flagの値に応じてkeyの作成(chk_flag==0) or 読み込み(chk_flag==1)
+if (chk_flag == 1):
+    f = open('key.pickle', 'rb')
+    binaryfile = pickle.load(f)
+    n, e, d = binaryfile
+    key = str(n) + " " +str(e)
+
+    bln.set(True)
+else:
+    # p,qの最大値、最小値
+    max_prime = pow(10, 201)
+    min_prime = pow(10, 200)
+
+    # p,qを範囲内のランダムな素数で初期化
+    p = sympy.randprime(min_prime, max_prime)
+    q = sympy.randprime(min_prime, max_prime)
+    while(p == q):
+        q = sympy.randprime(min_prime, max_prime)
+
+    n = p * q
+    L = math.lcm(p-1, q-1)
+    max = max(p, q)
+    e = sympy.randprime(max+1, L)
+    x = sympy.gcdex(e, L)
+    d = int(x[0] % L)
+    key = str(n) + " " +str(e)
+
+    f = open('key.pickle', 'wb')
+    pickle.dump([n, e, d], f)
+    f.close
+    bln.set(False)
+
 # 入出力欄の作成
 key_box = ScrolledText(root, font=("", 10), height=5, width=72)
 key_box.pack()
@@ -77,10 +122,10 @@ input_label.place(x=10, y=145)
 p_label = tkinter.Label(text="平文")
 p_label.place(x=10, y=415)
 
-# ボタンクリック時の動作
+# 復号処理
 def decryption():
-    c_text = c_box.get(1.0,END)
-    c_txt_list = list(c_text)  # 文字列をリストへ変換
+    c_txt = c_box.get(1.0,END)
+    c_txt_list = list(c_txt)  # 文字列をリストへ変換
     c_txt_list.pop()
 
     c_ascii_list = []
@@ -103,6 +148,7 @@ def decryption():
     p_txt = (''.join(p_txt_list))  # リスト内の文字を結合
     p_box.delete(1.0, END)
     p_box.insert(1.0, p_txt)
+
 # クリップボード処理
 def set_key():
     root.clipboard_append(key)
@@ -113,5 +159,6 @@ key_button.place(x=10, y=105)
 
 decry_button = tkinter.Button(text="復号実行",command=decryption)
 decry_button.place(x=10, y=375)
+
 
 root.mainloop()

@@ -33,33 +33,36 @@ def N_to_dec(list, N):
 # ウィンドウの作成
 root = tkinter.Tk()
 root.title("送信側（暗号化）")
-root.geometry("560x600")
+root.geometry("560x670")
 
 # 入出力欄の作成
-key_box = tkinter.Entry(width=40)
+key_box = ScrolledText(root, font=("", 10), height=5, width=72)
+key_box.pack()
 key_box.place(x=10, y=31)
 
 p_box = ScrolledText(root, font=("", 15), height=10, width=50)
 p_box.pack()
-p_box.place(x=10, y=81)
+p_box.place(x=10, y=131)
 
 c_box = ScrolledText(root, font=("", 15), height=10, width=50)
 c_box.pack()
-c_box.place(x=10, y=351)
+c_box.place(x=10, y=401)
 
 # ラベルの作成
 key_label = tkinter.Label(text="keyを入力")
 key_label.place(x=10, y=10)
 
 p_label = tkinter.Label(text="平文を入力")
-p_label.place(x=10, y=60)
+p_label.place(x=10, y=110)
 
 c_label = tkinter.Label(text="暗号文")
-c_label.place(x=10, y=330)
+c_label.place(x=10, y=380)
 
 # ボタンクリック時の動作
 def encryption(x):
-    n, e = map(int, key_box.get().split())
+    key_txt = key_box.get(1.0,END)
+    key_txt = key_txt[:-1]
+    n, e = map(int, key_txt.split())
     P = n + 1
     p_txt = p_box.get(1.0, END)
 
@@ -93,15 +96,17 @@ def encryption(x):
             return c_txt
     else:
         messagebox.showwarning("error","平文が長すぎます。")
-# クリップボード処理
-def set_c():
-    root.clipboard_append(encryption(0))
+# クリップボード処理（保留）
+#def set_c():
+#    root.clipboard_append(encryption(0))
 
 # ボタンの作成
 encry_button = tkinter.Button(text="暗号化実行",command=partial(encryption, 1))
-encry_button.place(x=10, y=290)
+encry_button.place(x=10, y=340)
 
+#クリップボードへのコピーが不安定なため保留
 #copy_button = tkinter.Button(text="暗号文をクリップボードにコピー",command=set_c)
-#copy_button.place(x=10, y=560)
+#copy_button.place(x=10, y=610)
+
 
 root.mainloop()
