@@ -144,21 +144,20 @@ def encryption(x):
 def delete():
     key_box.delete(1.0, END)
 
-# クリップボード処理（保留）
+# クリップボード処理（保留）-----------------------
 #def set_c():
 #    root.clipboard_append(encryption(0))
-
+#------------------------------------------------
 
 # ボタンの作成
-
 delete_button = tkinter.Button(text="keyをクリア",command=delete)
 delete_button.place(x=454, y=105)
 encry_button = tkinter.Button(text="暗号化実行",command=partial(encryption, 1))
 encry_button.place(x=10, y=375)
 
-# クリップボードへのコピーが不安定なため保留
+# クリップボードへのコピーが不安定なため保留----------------------------------------
 #copy_button = tkinter.Button(text="暗号文をクリップボードにコピー",command=set_c)
-#copy_button.place(x=10, y=610)
-
+#copy_button.place(x=10, y=642)
+#-------------------------------------------------------------------------------
 
 root.mainloop()
