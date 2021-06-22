@@ -8,18 +8,18 @@ A = 32  # ASCIIコードのA番以降を使う(delも除外) 途中の処理に�
 
 #1 0進数numをN進数に変換する関数
 def dec_to_N(num,N):
-    keta=0
+    digit=0
     for i in range(10**9):
         if num<N**i:
-            keta+=i
+            digit+=i
             break
-    ans=[0]*keta
+    ans=[0]*digit
     check=0
-    for i in range(1,keta+1):
-        j=num//(N**(keta-i))
+    for i in range(1,digit+1):
+        j=num//(N**(digit-i))
         ans[check]=j
         check+=1
-        num-=(j)*(N**(keta-i))
+        num-=(j)*(N**(digit-i))
     return ans
 
 # N進数listを10進数に変換する関数
