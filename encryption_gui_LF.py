@@ -101,7 +101,7 @@ def encryption(x):
     key_txt = key_txt[:-1]
     with open('encryption.pickle', mode='wb') as f:
             pickle.dump(chk_flag, f)
-            pickle.dump(key, f)
+            pickle.dump(key_txt, f)
     try:
         n, e = map(int, key_txt.split())
     except:
@@ -140,9 +140,11 @@ def encryption(x):
     else:
         messagebox.showwarning("エラー","平文が長すぎます。")
 
-# key入力欄クリア処理
-def delete():
+# 入力欄クリア処理
+def key_delete():
     key_box.delete(1.0, END)
+def p_delete():
+    p_box.delete(1.0, END)
 
 # クリップボード処理（保留）-----------------------
 #def set_c():
@@ -150,10 +152,14 @@ def delete():
 #------------------------------------------------
 
 # ボタンの作成
-delete_button = tkinter.Button(text="keyをクリア",command=delete)
-delete_button.place(x=454, y=105)
+key_del_button = tkinter.Button(text="クリア",command=key_delete)
+key_del_button.place(x=480, y=105)
+
 encry_button = tkinter.Button(text="暗号化実行",command=partial(encryption, 1))
 encry_button.place(x=10, y=375)
+
+p_del_button = tkinter.Button(text="クリア",command=p_delete)
+p_del_button.place(x=480, y=375)
 
 # クリップボードへのコピーが不安定なため保留----------------------------------------
 #copy_button = tkinter.Button(text="暗号文をクリップボードにコピー",command=set_c)

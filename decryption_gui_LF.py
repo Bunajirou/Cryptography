@@ -124,7 +124,7 @@ input_label.place(x=10, y=145)
 p_label = tkinter.Label(text="平文")
 p_label.place(x=10, y=415)
 
-# 復号処理関数
+# 復号処理
 def decryption():
     c_txt = c_box.get(1.0,END)
     c_txt_list = list(c_txt)  # 文字列をリストへ変換
@@ -151,9 +151,13 @@ def decryption():
     p_box.delete(1.0, END)
     p_box.insert(1.0, p_txt)
 
-# クリップボード処理関数
+# クリップボード処理
 def set_key():
     root.clipboard_append(key)
+
+# 入力欄クリア処理
+def c_delete():
+    c_box.delete(1.0, END)
 
 # ボタンの作成
 key_button = tkinter.Button(text="keyの値をクリップボードにコピー",command=set_key)
@@ -161,6 +165,9 @@ key_button.place(x=10, y=105)
 
 decry_button = tkinter.Button(text="復号実行",command=decryption)
 decry_button.place(x=10, y=375)
+
+c_del_button = tkinter.Button(text="クリア",command=c_delete)
+c_del_button.place(x=480, y=375)
 
 
 root.mainloop()
