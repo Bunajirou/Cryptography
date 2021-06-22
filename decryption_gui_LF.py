@@ -37,18 +37,24 @@ root = tkinter.Tk()
 root.title("受信側（復号）")
 root.geometry("560x670")
 
-# チェックボタンの状態をバイナリファイルに書き込み
+# チェックボタンの状態をdecryption.pickleに書き込む関数
 def write_state():
     if bln.get():
-        chk_flag = 1
-        f = open('chk.pickle', 'wb')
-        pickle.dump(chk_flag, f)
-        f.close
+        with open('decryption.pickle', mode='rb') as f:
+            chk_flag = pickle.load(f)
+            hoka = pickle.load(f)
+        with open('decryption.pickle', mode='wb') as f:
+            chk_flag = 1
+            pickle.dump(chk_flag, f)
+            pickle.dump(hoka, f)
     else:
-        chk_flag = 0
-        f = open('chk.pickle', 'wb')
-        pickle.dump(chk_flag, f)
-        f.close
+        with open('decryption.pickle', mode='rb') as f:
+            chk_flag = pickle.load(f)
+            hoka = pickle.load(f)
+        with open('decryption.pickle', mode='wb') as f:
+            chk_flag = 0
+            pickle.dump(chk_flag, f)
+            pickle.dump(hoka, f)
 
 # チェックボタン作成
 bln = tkinter.BooleanVar()
@@ -56,23 +62,17 @@ bln.set(False)
 chk = tkinter.Checkbutton(root, variable=bln, text='keyを固定', command=write_state)
 chk.place(x=440, y=100)
 
-# chk_flagをchkバイナリファイルで初期化,ファイルが存在しない場合は作成し0を書き込み
-if(os.path.exists('./chk.pickle')):
-    f = open('chk.pickle', 'rb')
-    chk_flag = pickle.load(f)
+# chk_flagをdecryption.pickleを参照し初期化
+if(os.path.exists('./decryption.pickle')):
+    with open('decryption.pickle', mode='rb') as f:
+        chk_flag = pickle.load(f)
+        n, e, d = pickle.load(f)
 else:
     chk_flag = 0
-    f = open('chk.pickle', 'wb')
-    pickle.dump(chk_flag, f)
-    f.close
 
 # chk_flagの値に応じてkeyの作成(chk_flag==0) or 読み込み(chk_flag==1)
 if (chk_flag == 1):
-    f = open('key.pickle', 'rb')
-    binaryfile = pickle.load(f)
-    n, e, d = binaryfile
     key = str(n) + " " +str(e)
-
     bln.set(True)
 else:
     # p,qの最大値、最小値
@@ -93,10 +93,12 @@ else:
     d = int(x[0] % L)
     key = str(n) + " " +str(e)
 
-    f = open('key.pickle', 'wb')
-    pickle.dump([n, e, d], f)
-    f.close
-    bln.set(False)
+    with open('decryption.pickle', mode='wb') as f:
+        chk_flag = 0
+        hoka = [n,e,d]
+        pickle.dump(chk_flag, f)
+        pickle.dump(hoka, f)
+        bln.set(False)
 
 # 入出力欄の作成
 key_box = ScrolledText(root, font=("", 10), height=5, width=72)
@@ -122,7 +124,7 @@ input_label.place(x=10, y=145)
 p_label = tkinter.Label(text="平文")
 p_label.place(x=10, y=415)
 
-# 復号処理
+# 復号処理関数
 def decryption():
     c_txt = c_box.get(1.0,END)
     c_txt_list = list(c_txt)  # 文字列をリストへ変換
@@ -149,7 +151,7 @@ def decryption():
     p_box.delete(1.0, END)
     p_box.insert(1.0, p_txt)
 
-# クリップボード処理
+# クリップボード処理関数
 def set_key():
     root.clipboard_append(key)
 
