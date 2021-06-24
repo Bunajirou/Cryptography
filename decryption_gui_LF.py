@@ -89,6 +89,8 @@ else:
     L = math.lcm(p-1, q-1)
     max = max(p, q)
     e = sympy.randprime(max+1, L)
+    while(sympy.gcd(e, L)!=1):
+        e = sympy.randprime(max+1, L)
     x = sympy.gcdex(e, L)
     d = int(x[0] % L)
     key = str(n) + " " +str(e)
