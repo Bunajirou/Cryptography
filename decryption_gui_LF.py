@@ -9,7 +9,7 @@ from tkinter.scrolledtext import ScrolledText
 A = 32  # ASCIIコードのA番以降を使う(delも除外) 途中の処理により改行文字も使用可能
 
 # 10進数numをN進数に変換する関数
-def dec_to_N(num,N):
+def dec_to_N(num, N):
     digit=0
     for i in range(10**9):
         if num<N**i:
