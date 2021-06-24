@@ -76,8 +76,8 @@ if (chk_flag == 1):
     bln.set(True)
 else:
     # p,qの最大値、最小値
-    max_prime = pow(10, 201)
-    min_prime = pow(10, 200)
+    max_prime = pow(10, 200)
+    min_prime = pow(10, 199)
 
     # p,qを範囲内のランダムな素数で初期化
     p = sympy.randprime(min_prime, max_prime)
