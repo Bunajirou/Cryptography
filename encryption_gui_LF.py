@@ -63,15 +63,12 @@ chk.place(x=440, y=9)
 
 # 入出力欄の作成
 key_box = ScrolledText(root, font=("", 10), height=5, width=72)
-key_box.pack()
 key_box.place(x=10, y=31)
 
 p_box = ScrolledText(root, font=("", 15), height=10, width=50)
-p_box.pack()
 p_box.place(x=10, y=166)
 
 c_box = ScrolledText(root, font=("", 15), height=10, width=50)
-c_box.pack()
 c_box.place(x=10, y=436)
 
 # ラベルの作成
